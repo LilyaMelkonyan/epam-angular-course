@@ -1,0 +1,33 @@
+<div class="container">
+    <div class="row">
+        <div class="col-12 mt-3">
+            <a routerLink="/sign-up" routerLinkActive="active" class="text-dark mr-auto"> Sign up </a>
+        </div>
+        <div class="col-5 mx-auto mt-5">
+            <form [formGroup]="form" (ngSubmit)="onSubmit()" class="signinForm">
+                <h3>Sign in</h3>
+                <div class="form-group row mb-3">
+                    <label for="mail" class="col-3">Email:</label>
+                    <div class="col-9">
+                        <input type="text" id="mail" formControlName="email" placeholder="Enter your email" class="form-control"/>
+                    </div>
+                </div>
+                <div class="form-group row mb-3">
+                    <label for="pass" class="col-3">Password:</label>
+                    <div class="col-9">
+                        <input type="password" formControlName="password" class="form-control" id="pass"/>
+                    </div>
+                </div>
+
+                <div class="col-12 text-danger my-2 h6 text-left" *ngIf="errMsg">{{errMsg}}</div>
+                <div class="col-12 text-success my-2 h6 text-left" *ngIf="successMsg">{{successMsg}}</div>
+                <div class="float-end">
+                    <button class="btn btn-lg btn-dark" [disabled]="submitted || form.invalid">
+                        <div *ngIf="submitted" class="spinner-border spinner-border-sm"></div>
+                        Sign In
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
