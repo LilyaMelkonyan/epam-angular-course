@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControlOptions } from '@angular/forms';
 import { Router } from '@angular/router';
-import { LocalStorageService } from '../services/storage.service';
+import { LocalStorageService } from '../../services/storage.service';
 import { UUID } from 'angular2-uuid';
-import { IuserInfo } from '../interfaces/iuserInfo';
+import { MustMatch } from './custom_match_validator';
+
+import { IuserInfo } from '../../interfaces/iuserInfo';
 
 @Component({
   selector: 'app-sign-up',
@@ -20,10 +22,10 @@ export class SignUpComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private router: Router,
-    private localStorage: LocalStorageService) { }
+    private localStorage: LocalStorageService) {}
 
   ngOnInit(): void {
-    const logedInUser = this.localStorage.get('logged-in');
+    const logedInUser = this.localStorage.get('logged-user-email');
     if (logedInUser) {
       this.router.navigate(['/home']);
     }
@@ -36,20 +38,29 @@ export class SignUpComponent implements OnInit {
             firstName: ['', Validators.required],
             lastName: ['', Validators.required],
             email: ['', [Validators.required, Validators.email]],
-            password: ['', [Validators.required, Validators.minLength(6)]]
-    })
+            password: ['', [Validators.required, Validators.minLength(6)]],
+            confirmPassword: ['', Validators.required]
+    }, {
+      validator: MustMatch('password', 'confirmPassword')
+    } as AbstractControlOptions
+    )
   }
 
   get f() { return this.form.controls } //access to form fields
 
   onSubmit() {
-    console.log(this.form);
     this.submitted = true;
+    if (this.form.invalid) {
+      setTimeout(() => this.submitted = false, 2000)
+      return;
+    }
+
     const signUpUsers = this.localStorage.get('users');
     this.user = this.form.value;
     if (!this.user) {
       return;
     }
+    delete this.user?.confirmPassword;
     
     if (!signUpUsers) {
       this.localStorage.set('users', JSON.stringify({[this.user.email]: this.user}));

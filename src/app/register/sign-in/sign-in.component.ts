@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { LocalStorageService } from '../services/storage.service';
-import { IuserInfo } from '../interfaces/iuserInfo';
+import { LocalStorageService } from '../../services/storage.service';
+import { IuserInfo } from '../../interfaces/iuserInfo';
 
 @Component({
   selector: 'app-sign-in',
@@ -23,7 +23,7 @@ export class SignInComponent implements OnInit {
 
   ngOnInit(): void {  
     const users = this.localStorage.get('users'); 
-    const logedInUser = this.localStorage.get('logged-in');
+    const logedInUser = this.localStorage.get('logged-user-email');
 
     if (!logedInUser) {
       if (users) {
@@ -59,7 +59,7 @@ export class SignInComponent implements OnInit {
 
     if (this.users) {
       if (this.users[userInfo.email] && this.users[userInfo.email].password === userInfo.password){
-        this.localStorage.set('logged-in', JSON.stringify(true));
+        this.localStorage.set('logged-user-email', JSON.stringify(userInfo.email));
         this.router.navigate(['/home']);
       }else{
         this.errMsg = "Please sign up at first!";
