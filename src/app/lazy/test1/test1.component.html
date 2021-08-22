@@ -1,0 +1,37 @@
+<div class="container">
+    <div class="row">
+      <div class="col-12">
+          <h1>Test 1</h1>
+        <nav class="navbar navbar-expand-lg navbar-light navbar-">
+          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav1" aria-controls="navbarNav1" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse justify-content-end" id="navbarNav1">
+            <ul class="navbar-nav">
+              <li class="nav-item">
+                <a class="nav-link" routerLink="test2"
+                 routerLinkActive="active"> Test2 </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" routerLink="test3" routerLinkActive="active"> Test3 </a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link" routerLink="test4" routerLinkActive="active"> Test4 </a>
+              </li>
+            </ul>
+          </div>
+        </nav>
+      </div>
+      <div class="col-12 py-3">
+          <div class="row">
+              <div class="col-6 bg-pink" style="height: 300px;">
+                <router-outlet name='left'></router-outlet>
+              </div>
+              <div class="col-6 bg-yellow">
+                  <router-outlet></router-outlet>
+              </div>
+          </div>
+       
+      </div>
+    </div>
+  </div>
