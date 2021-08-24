@@ -1,11 +1,12 @@
 <div class="container">
     <div class="row">
-        <div class="col-12 mt-3">
-            <a routerLink="/sign-up" routerLinkActive="active" class="text-dark mr-auto"> Sign up </a>
-        </div>
         <div class="col-5 mx-auto mt-5">
             <form [formGroup]="form" (ngSubmit)="onSubmit()" class="signinForm">
-                <h3>Sign in</h3>
+                <h3 class="mb-3">Sign In | 
+                    <span>
+                        <a routerLink="/sign-up" class="cursor-pointer text-dark text-decoration-none"> Sign Up </a>
+                    </span>
+                </h3>
                 <div class="form-group row mb-3">
                     <label for="mail" class="col-3">Email:</label>
                     <div class="col-9">

@@ -1,0 +1,65 @@
+<div class="container">
+  <div class="row my-3">
+    <div class="col-3">
+      <div class="form-group row">
+        <div class="col-3">
+          <select class="form-control" [(ngModel)]="selectedSize">
+            <option *ngFor="let size of canvasSizes" [value]="size">{{size}}</option>
+          </select>
+        </div>
+        <div class="col-9"> <button class="btn btn-dark text-light" (click)="onGenerateCircles()"> Generate </button> </div>
+      </div>
+    </div>
+    <div class="col-5">
+      <div class="row">
+        <div class="col-1">
+          <div class="picker-wrapper">
+            <div class="picker-inner"
+                  [style.background-color]="currentColor"></div>
+            <input class="picker" type="color"
+                  [(ngModel)]="currentColor" />
+          </div>
+        </div>
+
+        <div class="col-11">
+          <div class="btn-group mr-2" role="group">
+            <button type="button" class="btn btn-primary" (click)="onFillCircles()">Fill all</button>
+            <button type="button" class="btn btn-secondary" (click)="onResetColor()">Reset</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-4">
+      <div class="input-group">
+        <label class="my-auto pl-2" for="prj-name">Project Name: </label>
+        <input type="text" class="form-control" id="prj-name" [(ngModel)]="projectName">
+        <div class="input-group-prepend">
+          <div class="">
+            <button class="btn btn-primary text-light" (click)="onSave()">{{!selectedProject ? 'Add' : 'Edit'}}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-12 mt-5">
+      <div class="row">
+        <div class="col-6">
+          <div class="circles-container w-100">
+            <app-circle *ngFor="let circle of circles"
+                        [color]="circle.color"
+                        (click)="onCircleClick(circle)">
+            </app-circle>
+          </div>
+        
+        </div>
+        <div class="col-6">
+          <div class="row">
+            <div class="col-2 d-flex justify-content-around align-items-center border border-dark rounded py-3" *ngFor="let project of projectList; let i = index">
+              <p class="my-auto text-break" role="button" (click)="selectProject(project)">{{project.name}}</p>
+              <button class="btn btn-outline-danger btn-sm" (click)="removeProject(i)">x</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
